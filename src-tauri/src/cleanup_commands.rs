@@ -1,5 +1,5 @@
+use crate::folder_commands::{categorize_file, compute_hash, is_temp_file};
 use crate::models::*;
-use crate::folder_commands::{categorize_file, is_temp_file, compute_hash};
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -165,7 +165,7 @@ pub fn scan_for_temp_files(path: &str, skip_hidden: bool) -> Vec<FileInfo> {
             size: metadata.len(),
             modified: metadata
                 .modified()
-                .map(|t| t.to_string())
+                .map(|t| format!("{:?}", t))
                 .unwrap_or_else(|_| "1970-01-01T00:00:00Z".to_string()),
             is_directory: false,
             is_duplicate: false,
@@ -206,10 +206,7 @@ fn categorize_by_name(key: &str) -> FileCategory {
 }
 
 #[tauri::command]
-pub fn delete_files(
-    files: Vec<String>,
-    target_type: &str,
-) -> Result<CleanupResult, String> {
+pub fn delete_files(files: Vec<String>, target_type: &str) -> Result<CleanupResult, String> {
     if files.is_empty() {
         return Err("No files specified".to_string());
     }
@@ -243,7 +240,10 @@ pub fn delete_files(
             .parent()
             .map(|p| p.display().to_string())
             .unwrap_or_default(),
-        message: format!("Deleted {} file(s), freed {} bytes", deleted_count, total_freed),
+        message: format!(
+            "Deleted {} file(s), freed {} bytes",
+            deleted_count, total_freed
+        ),
     })
 }
 
@@ -266,4 +266,17 @@ fn compute_hash_local(path: &Path) -> Result<String, String> {
     }
 
     Ok(format!("{:x}", hasher.finalize()))
+}
+
+#[tauri::command]
+pub fn get_storage_stats(path: &str) -> Result<StorageStats, String> {
+    let analysis = scan_for_duplicates(path, false)?;
+    Ok(StorageStats {
+        total_files: analysis.scanned,
+        total_size: analysis.total_size,
+        duplicate_count: analysis.duplicates.len() as u64,
+        temp_file_count: analysis.temp_files.len() as u64,
+        categories: analysis.categories,
+        available_space_bytes: 0,
+    })
 }

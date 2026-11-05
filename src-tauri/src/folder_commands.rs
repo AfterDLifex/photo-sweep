@@ -185,3 +185,9 @@ pub(crate) fn compute_hash(path: &Path) -> Result<String, String> {
 
     Ok(format!("{:x}", hasher.finalize()))
 }
+
+#[tauri::command]
+pub fn get_directory_contents(path: &str) -> Result<Vec<FileInfo>, String> {
+    // depth 0 => max_depth 1 => immediate children only
+    scan_directory(path, 0)
+}
