@@ -1,0 +1,239 @@
+/* ============================================
+   Cleaning Screen
+   ============================================ */
+.cleaning-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-background);
+}
+
+.hero-section {
+  background: linear-gradient(135deg, var(--color-system-red) 0%, #cc0000 100%);
+  padding: var(--space-6) var(--space-8) var(--space-8);
+  border-bottom: 1px solid var(--color-background-300);
+  flex-shrink: 0;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+}
+
+.hero-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: var(--space-3);
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: var(--space-2);
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  gap: var(--space-4);
+}
+
+.loading-text {
+  color: var(--color-text-tertiary);
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   Scan Type Selector
+   ============================================ */
+.scan-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-8);
+  flex-shrink: 0;
+}
+
+.scan-type-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-3);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-background-300);
+  background: var(--color-background-100);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.scan-type-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.scan-type-btn .material-icons {
+  font-size: 1.4rem;
+}
+
+.scan-type-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.scan-type-count {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+}
+
+/* ============================================
+   File List Section
+   ============================================ */
+.file-list-section {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-8) var(--space-12);
+}
+
+.file-list-section::-webkit-scrollbar {
+  display: none;
+}
+
+.file-list-section {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.file-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  flex-shrink: 0;
+}
+
+.file-list-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.file-list-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.file-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+
+.file-list-item:hover {
+  background: var(--color-background-200);
+}
+
+.file-list-item.selected {
+  background: var(--color-primary-50);
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-background-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.checkbox.checked {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.checkbox .material-icons {
+  color: white;
+  font-size: 16px;
+}
+
+.file-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  background: var(--color-background-200);
+  color: var(--color-text-tertiary);
+}
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-category {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+}
+
+.file-size {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+  min-width: 70px;
+  text-align: right;
+}
+
+/* ============================================
+   Cleared Message
+   ============================================ */
+.cleared-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  gap: var(--space-4);
+  background: var(--color-secondary-light);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-secondary);
+}
+
+.cleared-message p {
+  color: var(--color-secondary-dark);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+

@@ -1,0 +1,390 @@
+/* ============================================
+   Badge Component - iOS Style
+   ============================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-soft {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.badge-secondary {
+  background: var(--color-background-300);
+  color: var(--color-text-secondary);
+}
+
+.badge-success {
+  background: var(--color-secondary-light);
+  color: var(--color-secondary-dark);
+}
+
+.badge-warning {
+  background: var(--color-accent-orange);
+  color: var(--color-text-on-accent);
+}
+
+.badge-danger {
+  background: var(--color-system-red);
+  color: var(--color-text-on-accent);
+}
+
+.badge-info {
+  background: var(--color-accent-blue);
+  color: var(--color-text-on-accent);
+}
+
+/* ============================================
+   Buttons - iOS Style
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.925rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  min-height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-text-on-accent);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn-primary:active {
+  background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background: var(--color-background-100);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-background-300);
+}
+
+.btn-secondary:hover {
+  background: var(--color-background-200);
+  border-color: var(--color-background-400);
+}
+
+.btn-secondary:active {
+  background: var(--color-background-300);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+  background: var(--color-primary-light);
+}
+
+.btn-outline:active {
+  background: var(--color-primary-light);
+}
+/* ============================================
+   Cards - iOS Style
+   ============================================ */
+.card {
+  background: var(--color-background-100);
+  border-radius: var(--corner-large);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-background-200);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card:active {
+  transform: translateY(0);
+}
+
+.card-header {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-background-200);
+}
+
+.card-content {
+  padding: var(--space-4);
+}
+
+.card-footer {
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-background-200);
+}
+
+/* ============================================
+   File/Folder Cards - Gallery Grid
+   ============================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-3);
+}
+
+.gallery-item {
+  background: var(--color-background-100);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-background-200);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--color-primary-300);
+}
+
+.gallery-item:active {
+  transform: translateY(-2px);
+}
+
+.gallery-item-image {
+  height: 100px;
+  background: var(--color-background-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gallery-item-image svg {
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-tertiary);
+}
+
+.gallery-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-item-info {
+  padding: var(--space-2);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-item-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-item-category {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: capitalize;
+  margin-top: 2px;
+}
+
+.gallery-item-size {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.gallery-item-icon-block {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  min-width: 52px;
+  font-size: 1.6rem;
+}
+
+.icon-badge.image { background: var(--color-primary-100); color: var(--color-primary); }
+.icon-badge.video { background: var(--color-background-300); color: var(--color-primary-600); }
+.icon-badge.audio { background: var(--color-background-300); color: var(--color-primary-600); }
+.icon-badge.document { background: var(--color-background-300); color: var(--color-primary-600); }
+.icon-badge.archive { background: var(--color-background-300); color: var(--color-primary-600); }
+.icon-badge.temporary { background: var(--color-system-yellow); color: white; }
+.icon-badge.other { background: var(--color-background-200); color: var(--color-text-tertiary); }
+
+/* ============================================
+   Section Headers
+   ============================================ */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-8);
+  border-bottom: 1px solid var(--color-background-200);
+  flex-shrink: 0;
+}
+
+.section-header h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.section-header .subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ============================================
+   Stats Cards - iOS Style
+   ============================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-8);
+}
+
+.stat-card {
+  background: var(--color-background-100);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-background-200);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.stat-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: var(--space-3);
+}
+
+.stat-icon.image { background: var(--color-primary-100); color: var(--color-primary); }
+.stat-icon.video { background: var(--color-background-200); color: var(--color-primary-600); }
+.stat-icon.audio { background: var(--color-background-200); color: var(--color-primary-600); }
+.stat-icon.document { background: var(--color-background-200); color: var(--color-primary-600); }
+.stat-icon.temporary { background: var(--color-system-yellow); color: white; }
+.stat-icon.other { background: var(--color-background-200); color: var(--color-text-tertiary); }
+
+.stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.btn-ghost:hover {
+  background: var(--color-background-200);
+  color: var(--color-text-primary);
+}
+
+.btn-danger {
+  background: var(--color-system-red);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #E61D1D;
+}
+
+.btn-icon {
+  padding: var(--space-3);
+  border-radius: var(--radius-full);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.btn-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-icon:active {
+  background: var(--color-background-200);
+}
+
+

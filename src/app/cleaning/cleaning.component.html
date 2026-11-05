@@ -1,0 +1,133 @@
+<div class="cleaning-screen">
+  <!-- Header -->
+  <header class="app-header" data-blur="true">
+    <div class="header-content">
+      <div class="app-title">
+        <span class="material-icons">delete_sweep</span>
+        <span>Clean</span>
+      </div>
+      <button class="btn btn-ghost btn-icon" (click)="onToggleTheme()">
+        <span class="material-icons">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <span class="material-icons" style="font-size: 3rem; color: var(--color-primary);">delete_sweep</span>
+        <h1 class="hero-title">Storage Cleaner</h1>
+        <p class="hero-subtitle">Find and remove duplicate & temporary files</p>
+      </div>
+    </section>
+
+    <!-- Type Selector -->
+    <section class="scan-type-selector">
+      <button
+        class="scan-type-btn"
+        [class.active]="scanType === 'duplicates'"
+        (click)="scanType = 'duplicates'"
+      >
+        <span class="material-icons" style="color: var(--color-system-red);">label</span>
+        <span class="scan-type-label">Duplicates</span>
+        <span class="scan-type-count">{{ duplicateCount }} groups</span>
+      </button>
+      <button
+        class="scan-type-btn"
+        [class.active]="scanType === 'temp'"
+        (click)="scanType = 'temp'"
+      >
+        <span class="material-icons" style="color: var(--color-system-yellow);">warning</span>
+        <span class="scan-type-label">Temporary</span>
+        <span class="scan-type-count">{{ tempFileCount }} files</span>
+      </button>
+    </section>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-screen">
+      <div class="spinner"></div>
+      <p class="loading-text">Scanning for files...</p>
+    </div>
+
+    <!-- File List -->
+    <section *ngIf="!isLoading && files.length > 0" class="file-list-section">
+      <div class="file-list-header">
+        <div class="file-list-title">
+          <span class="material-icons" style="color: var(--color-system-red);">{{ scanType === 'duplicates' ? 'label' : 'warning' }}</span>
+          <h2>{{ scanType === 'duplicates' ? 'Duplicate Files' : 'Temporary Files' }}</h2>
+        </div>
+        <div class="file-list-actions">
+          <button class="btn btn-outline btn-sm" (click)="toggleSelectAll()">
+            <span class="material-icons">{{ selectedFiles.size === files.length ? 'deselect_all' : 'select_all' }}</span>
+            {{ selectedFiles.size === files.length ? 'Deselect All' : 'Select All' }}
+          </button>
+          <button class="btn btn-primary btn-sm" (click)="confirmClean()" [disabled]="selectedFiles.size === 0">
+            <span class="material-icons">delete</span>
+            Delete {{ selectedFiles.size }} Selected
+          </button>
+        </div>
+      </div>
+
+      <div class="file-list">
+        <div
+          class="file-list-item"
+          *ngFor="let file of files"
+          [class.selected]="selectedFiles.has(file.path)"
+          (click)="toggleSelect(file.path)"
+        >
+          <div class="checkbox" [class.checked]="selectedFiles.has(file.path)">
+            <span class="material-icons">{{ selectedFiles.has(file.path) ? 'check_circle' : 'check_box_outline_blank' }}</span>
+          </div>
+          <div class="file-icon">
+            <span class="material-icons">{{ getFileIcon(file.category) }}</span>
+          </div>
+          <div class="file-info">
+            <div class="file-name">{{ file.name }}</div>
+            <div class="file-category">{{ file.categoryLabel }} • {{ file.extension.toUpperCase() }}</div>
+          </div>
+          <div class="file-size">{{ formatSize(file.size) }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && files.length === 0" class="empty-state">
+      <span class="material-icons" style="font-size: 3rem;">inbox</span>
+      <h3>No files found</h3>
+      <p>{{ scanType === 'duplicates' ? 'No duplicate files were found' : 'No temporary files were found' }}</p>
+      <button class="btn btn-secondary" (click)="loadFiles()">
+        <span class="material-icons">refresh</span>
+        Scan Again
+      </button>
+    </div>
+
+    <!-- Cleared Message -->
+    <div *ngIf="cleared" class="cleared-message">
+      <span class="material-icons" style="color: var(--color-secondary);">check_circle</span>
+      <p>{{ clearedMessage }}</p>
+      <button class="btn btn-secondary" (click)="cleared = false; loadFiles()">
+        <span class="material-icons">refresh</span>
+        Scan Again
+      </button>
+    </div>
+  </main>
+
+  <!-- Bottom Tab Bar -->
+  <nav class="tab-bar">
+    <button class="tab-bar-button">
+      <span class="material-icons">photo_library</span>
+      <span>Gallery</span>
+    </button>
+    <button class="tab-bar-button">
+      <span class="material-icons">analyze</span>
+      <span>Analysis</span>
+    </button>
+    <button class="tab-bar-button active">
+      <span class="material-icons">delete_sweep</span>
+      <span>Clean</span>
+    </button>
+  </nav>
+</div>
+

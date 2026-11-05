@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "PhotoSweep",
+  "version": "1.0.0",
+  "identifier": "com.photosweep.app",
+  "build": {
+    "beforeDevCommand": "npm run start",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist/photosweep/browser"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "PhotoSweep",
+        "width": 360,
+        "height": 640,
+        "minWidth": 320,
+        "minHeight": 500,
+        "fullscreen": false,
+        "resizable": true,
+        "label": "main"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["android"],
+    "icon": [
+      "icons/1024x1024.png",
+      "icons/512x512.png",
+      "icons/192x192.png",
+      "icons/128x128.png",
+      "icons/48x48.png"
+    ],
+    "android": {
+      "applyDiagnostics": false,
+      "displayName": "PhotoSweep",
+      "gradleVersion": "8.7",
+      "kotlinVersion": "2.0.21",
+      "activity": {
+        "config": {
+          "theme": "@style/Theme.App.Splash",
+          "launchMode": "singleTask"
+        }
+      }
+    }
+  }
+}

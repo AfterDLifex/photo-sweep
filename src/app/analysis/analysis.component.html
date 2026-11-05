@@ -1,0 +1,122 @@
+<div class="analysis-screen">
+  <!-- Header -->
+  <header class="app-header" data-blur="true">
+    <div class="header-content">
+      <div class="app-title">
+        <span class="material-icons">analyze</span>
+        <span>Analysis</span>
+      </div>
+      <button class="btn btn-ghost btn-icon" (click)="onToggleTheme()">
+        <span class="material-icons">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <span class="material-icons" style="font-size: 3rem; color: var(--color-primary);">storage</span>
+        <h1 class="hero-title">Storage Analysis</h1>
+        <p class="hero-subtitle">{{ analysisResult?.scanned || 0 }} files analyzed</p>
+      </div>
+    </section>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-screen">
+      <div class="spinner"></div>
+      <p class="loading-text">Analyzing storage...</p>
+    </div>
+
+    <!-- Summary Cards -->
+    <section *ngIf="!isLoading && analysisResult" class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon image">
+          <span class="material-icons">photo_library</span>
+        </div>
+        <div class="stat-value">{{ analysisResult.scanned | number }}</div>
+        <div class="stat-label">Files</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon document">
+          <span class="material-icons">storage</span>
+        </div>
+        <div class="stat-value">{{ formatSize(analysisResult.totalSize) }}</div>
+        <div class="stat-label">Used</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon temporary">
+          <span class="material-icons">warning</span>
+        </div>
+        <div class="stat-value">{{ analysisResult.duplicates.length }}</div>
+        <div class="stat-label">Duplicate Groups</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon temporary">
+          <span class="material-icons">delete</span>
+        </div>
+        <div class="stat-value">{{ analysisResult.tempFiles!.length }}</div>
+        <div class="stat-label">Temp Files</div>
+      </div>
+    </section>
+
+    <!-- Category Breakdown -->
+    <section *ngIf="!isLoading && analysisResult" class="card">
+      <div class="card-header">
+        <h2 class="section-header-title">Category Breakdown</h2>
+      </div>
+      <div class="card-content">
+        <div class="category-cards-grid">
+          <div *ngFor="let cat of categories" class="category-card">
+            <div class="category-card-header">
+              <div class="category-card-header-icon">
+                <span class="material-icons" style="color: var(--color-primary);">{{ getCategoryIcon(cat.category) }}</span>
+              </div>
+              <div class="category-card-header-stats">
+                <div class="category-count-item">
+                  <div class="value">{{ cat.count }}</div>
+                  <div class="label">Files</div>
+                </div>
+                <div class="category-count-item">
+                  <div class="value">{{ formatSize(cat.size) }}</div>
+                  <div class="label">Size</div>
+                </div>
+              </div>
+            </div>
+            <div class="category-card-body">
+              <div class="progress-bar">
+                <div class="scan-progress-bar-fill" [style.width.%]="cat.size / totalSize * 100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <section *ngIf="!isLoading && analysisResult" class="action-section">
+      <button class="btn btn-secondary" (click)="onClean()">
+        <span class="material-icons">delete_sweep</span>
+        Clean Duplicates & Temp Files
+      </button>
+    </section>
+  </main>
+
+  <!-- Bottom Tab Bar -->
+  <nav class="tab-bar">
+    <button class="tab-bar-button">
+      <span class="material-icons">photo_library</span>
+      <span>Gallery</span>
+    </button>
+    <button class="tab-bar-button active">
+      <span class="material-icons">analyze</span>
+      <span>Analysis</span>
+    </button>
+    <button class="tab-bar-button">
+      <span class="material-icons">delete_sweep</span>
+      <span>Clean</span>
+    </button>
+  </nav>
+</div>
+

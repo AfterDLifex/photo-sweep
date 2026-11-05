@@ -1,0 +1,403 @@
+/* ============================================
+   File Tree View
+   ============================================ */
+.tree-view {
+  padding: var(--space-2) var(--space-4);
+}
+
+.tree-node {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) 0;
+  width: 100%;
+}
+
+.tree-node .tree-toggle {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  margin-right: var(--space-2);
+}
+
+.tree-node .tree-toggle:hover {
+  background: var(--color-background-200);
+}
+
+.tree-node .tree-toggle svg {
+  width: 14px;
+  height: 14px;
+}
+
+.tree-node.expanded > .tree-toggle svg {
+  transform: rotate(90deg);
+}
+
+.tree-node-content {
+  flex: 1;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.tree-node-content:hover {
+  background: var(--color-background-200);
+}
+
+.tree-node-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.tree-node-path {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+.tree-children {
+  padding-left: var(--space-5);
+  overflow: hidden;
+  transition: max-height var(--transition-normal);
+}
+
+.tree-children.collapsed {
+  max-height: 0;
+}
+
+/* ============================================
+   Analysis Summary Cards
+   ============================================ */
+.summary-card {
+  background: var(--color-background-100);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-background-200);
+  overflow: hidden;
+}
+
+.summary-card .stat-icon {
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+}
+
+.summary-card .stat-value {
+  font-size: 1.1rem;
+}
+
+.summary-card .stat-label {
+  font-size: 0.75rem;
+}
+
+.summary-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+/* ============================================
+   Category Card (in analysis view)
+   ============================================ */
+.category-card {
+  background: var(--color-background-100);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-background-200);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+/* ============================================
+   Scan Progress
+   ============================================ */
+.scan-progress-wrapper {
+  padding: var(--space-6);
+  background: var(--color-background-100);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-background-200);
+}
+
+.scan-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.scan-progress-header .progress-info {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.scan-progress-bar {
+  height: 8px;
+  background: var(--color-background-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.scan-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+/* ============================================
+   File List with Checkboxes
+   ============================================ */
+.file-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+
+.file-list-item:hover {
+  background: var(--color-background-200);
+}
+
+.file-list-item.selected {
+  background: var(--color-primary-50);
+}
+
+.file-list-item .checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-background-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.file-list-item.selected .checkbox {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.file-list-item.selected .checkbox svg {
+  color: white;
+  font-size: 14px;
+}
+
+.file-list-item .checkbox svg {
+  color: transparent;
+  font-size: 0px;
+  transition: all var(--transition-fast);
+}
+
+.file-list-item .file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-list-item .file-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-list-item .file-size {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.file-list-item .file-category {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  text-transform: capitalize;
+}
+
+/* ============================================
+   Tab Content Transitions
+   ============================================ */
+.tab-content {
+  display: none;
+  animation: fade-in 0.3s ease-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   Loading Spinner
+   ============================================ */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-background-400);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+}
+
+.category-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.category-card-header {
+  padding: var(--space-4);
+  background: var(--color-background-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-card-header .category-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.category-card-body {
+  padding: var(--space-4);
+}
+
+.category-card-stats {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.category-count-item {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-background-200);
+}
+
+.category-count-item .value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.category-count-item .label {
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+/* ============================================
+   Confirmation Dialog
+   ============================================ */
+.confirm-dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  animation: fade-in 0.2s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.confirm-card {
+  background: var(--color-background-100);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  max-width: 400px;
+  width: 90%;
+  box-shadow: var(--shadow-xl);
+  animation: slide-up 0.25s ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.confirm-card svg {
+  width: 56px;
+  height: 56px;
+  color: var(--color-system-yellow);
+  margin-bottom: var(--space-4);
+}
+
+.confirm-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.confirm-card p {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-6);
+}
+
+.confirm-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
+
+/* ============================================
+   Empty Folder State
+   ============================================ */
+.folder-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  background: var(--color-background-100);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-background-300);
+  margin: var(--space-4);
+}
+
+.folder-empty svg {
+  width: 64px;
+  height: 64px;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-3);
+}
+
+.folder-empty p {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+

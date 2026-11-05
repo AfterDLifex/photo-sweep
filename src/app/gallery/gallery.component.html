@@ -1,0 +1,110 @@
+<div class="gallery-screen">
+  <!-- Header -->
+  <header class="app-header" data-blur="true">
+    <div class="header-content">
+      <div class="app-title">
+        <span class="material-icons">photo_library</span>
+        <span>Gallery</span>
+      </div>
+      <button class="btn btn-ghost btn-icon" (click)="onToggleTheme()">
+        <span class="material-icons">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <span class="material-icons" style="font-size: 3rem; color: var(--color-primary);">photo_library</span>
+        <h1 class="hero-title">Your Memories</h1>
+        <p class="hero-subtitle">Browse and manage your photos, videos, and files</p>
+      </div>
+    </section>
+
+    <!-- Category Stats -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon image">
+          <span class="material-icons">photo_library</span>
+        </div>
+        <div class="stat-value">{{ totalFiles }}</div>
+        <div class="stat-label">Total Files</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon document">
+          <span class="material-icons">storage</span>
+        </div>
+        <div class="stat-value">{{ formatSize(totalSize) }}</div>
+        <div class="stat-label">Total Size</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon temporary">
+          <span class="material-icons">cleanup</span>
+        </div>
+        <div class="stat-value">{{ tempFileCount }}</div>
+        <div class="stat-label">Temp Files</div>
+      </div>
+    </section>
+
+    <!-- Loading State -->
+    @if (isLoading) {
+      <div class="loading-screen">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading your media...</p>
+      </div>
+    }
+
+    <!-- Gallery Grid -->
+    @if (!isLoading && files.length > 0) {
+      <div class="gallery-grid">
+        @for (file of files; track file.path) {
+          <div class="gallery-item">
+            <div class="gallery-item-image">
+              <span class="material-icons" [class]="'icon-badge ' + file.category">
+                {{ getIcon(file.category) }}
+              </span>
+            </div>
+            <div class="gallery-item-info">
+              <div class="gallery-item-name">{{ file.name }}</div>
+              <div class="gallery-item-category">{{ file.categoryLabel }}</div>
+              <div class="gallery-item-size">
+                <span>{{ formatSize(file.size) }}</span>
+                @if (file.isTemp) {
+                  <span class="material-icons" style="color: var(--color-system-yellow);">warning</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else if (!isLoading && files.length === 0) {
+      <div class="empty-state">
+        <span class="material-icons" style="font-size: 3rem;">photo_library</span>
+        <h3>No photos yet</h3>
+        <p>Add photos to see them here</p>
+        <button class="btn btn-primary">
+          <span class="material-icons">add</span>
+          Add Photos
+        </button>
+      </div>
+    }
+  </main>
+
+  <!-- Bottom Tab Bar -->
+  <nav class="tab-bar">
+    <button class="tab-bar-button active">
+      <span class="material-icons">photo_library</span>
+      <span>Gallery</span>
+    </button>
+    <button class="tab-bar-button">
+      <span class="material-icons">analyze</span>
+      <span>Analysis</span>
+    </button>
+    <button class="tab-bar-button">
+      <span class="material-icons">delete_sweep</span>
+      <span>Clean</span>
+    </button>
+  </nav>
+</div>

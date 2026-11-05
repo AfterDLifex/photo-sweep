@@ -1,0 +1,51 @@
+<div class="app-container">
+  <!-- iOS-style Header -->
+  <header class="app-header" data-blur="true">
+    <div class="header-content">
+      <div class="app-title">
+        <span class="material-icons">photo_library</span>
+        <span>PhotoSweep</span>
+      </div>
+      <button class="btn btn-ghost btn-icon" (click)="onToggleTheme()">
+        <span class="material-icons">{{ isDarkModeValue ? 'light_mode' : 'dark_mode' }}</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <!-- Current Tab Content -->
+    <app-gallery *ngIf="currentTab() === 'gallery'"></app-gallery>
+    <app-analysis *ngIf="currentTab() === 'analysis'"></app-analysis>
+    <app-cleaning *ngIf="currentTab() === 'cleaning'"></app-cleaning>
+  </main>
+
+  <!-- Bottom Tab Bar - iOS -->
+  <nav class="tab-bar">
+    <button
+      class="tab-bar-button"
+      [class.active]="currentTab() === 'gallery'"
+      (click)="setTab('gallery')"
+    >
+      <span class="material-icons">photo_library</span>
+      <span>Gallery</span>
+    </button>
+    <button
+      class="tab-bar-button"
+      [class.active]="currentTab() === 'analysis'"
+      (click)="setTab('analysis')"
+    >
+      <span class="material-icons">analyze</span>
+      <span>Analysis</span>
+    </button>
+    <button
+      class="tab-bar-button"
+      [class.active]="currentTab() === 'cleaning'"
+      (click)="setTab('cleaning')"
+    >
+      <span class="material-icons">delete_sweep</span>
+      <span>Clean</span>
+    </button>
+  </nav>
+</div>
+
