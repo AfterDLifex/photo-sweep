@@ -1,4 +1,11 @@
 <div class="cleaning-screen">
+  <!-- View Toggle -->
+  <div class="view-toggle">
+    <button class="btn btn-ghost" (click)="isGridView.set(!isGridView())">
+      <span class="material-icons" [class]="{'grid': isGridView(), 'list': !isGridView()}">{{ isGridView() ? 'grid_view' : 'list_view' }}</span>
+    </button>
+  </div>
+
   <!-- Header -->
   <header class="app-header" data-blur="true">
     <div class="header-content">
@@ -52,45 +59,55 @@
     </div>
 
     <!-- File List -->
-    <section *ngIf="!isLoading && files.length > 0" class="file-list-section">
-      <div class="file-list-header">
-        <div class="file-list-title">
-          <span class="material-icons" style="color: var(--color-system-red);">{{ scanType === 'duplicates' ? 'label' : 'warning' }}</span>
-          <h2>{{ scanType === 'duplicates' ? 'Duplicate Files' : 'Temporary Files' }}</h2>
-        </div>
-        <div class="file-list-actions">
-          <button class="btn btn-outline btn-sm" (click)="toggleSelectAll()">
-            <span class="material-icons">{{ selectedFiles.size === files.length ? 'deselect_all' : 'select_all' }}</span>
-            {{ selectedFiles.size === files.length ? 'Deselect All' : 'Select All' }}
-          </button>
-          <button class="btn btn-primary btn-sm" (click)="confirmClean()" [disabled]="selectedFiles.size === 0">
-            <span class="material-icons">delete</span>
-            Delete {{ selectedFiles.size }} Selected
-          </button>
-        </div>
-      </div>
-
-      <div class="file-list">
-        <div
-          class="file-list-item"
-          *ngFor="let file of files"
-          [class.selected]="selectedFiles.has(file.path)"
-          (click)="toggleSelect(file.path)"
-        >
-          <div class="checkbox" [class.checked]="selectedFiles.has(file.path)">
-            <span class="material-icons">{{ selectedFiles.has(file.path) ? 'check_circle' : 'check_box_outline_blank' }}</span>
+    @if (!isLoading && files.length > 0) {
+      @if (isGridView()) {
+        <!-- Grid View -->
+        <section class="file-list-section">
+          <div class="file-list-grid">
+            @for (file of files; track file.path) {
+              <div class="file-list-item">
+                <div class="checkbox" [class.checked]="selectedFiles.has(file.path)">
+                  <span class="material-icons">{{ selectedFiles.has(file.path) ? 'check_circle' : 'check_box_outline_blank' }}</span>
+                </div>
+                <div class="file-icon">
+                  <span class="material-icons">{{ getFileIcon(file.category) }}</span>
+                </div>
+                <div class="file-info">
+                  <div class="file-name">{{ file.name }}</div>
+                  <div class="file-category">{{ file.categoryLabel }} • {{ file.extension.toUpperCase() }}</div>
+                </div>
+                <div class="file-size">{{ formatSize(file.size) }}</div>
+              </div>
+            }
           </div>
-          <div class="file-icon">
-            <span class="material-icons">{{ getFileIcon(file.category) }}</span>
+        </section>
+      } @else {
+        <!-- List View -->
+        <section class="file-list-section">
+          <div class="file-list">
+            @for (file of files; track file.path) {
+              <div class="file-list-item">
+                <div class="checkbox" [class.checked]="selectedFiles.has(file.path)">
+                  <span class="material-icons">{{ selectedFiles.has(file.path) ? 'check_circle' : 'check_box_outline_blank' }}</span>
+                </div>
+                <div class="file-icon">
+                  <span class="material-icons">{{ getFileIcon(file.category) }}</span>
+                </div>
+                <div class="file-info">
+                  <div class="file-name">{{ file.name }}</div>
+                  <div class="file-category">{{ file.categoryLabel }} • {{ file.extension.toUpperCase() }}</div>
+                </div>
+                <div class="file-size">{{ formatSize(file.size) }}</div>
+                <div class="file-actions">
+                  <button class="btn btn-secondary btn-sm">Select</button>
+                  <button class="btn btn-outline btn-sm">Details</button>
+                </div>
+              </div>
+            }
           </div>
-          <div class="file-info">
-            <div class="file-name">{{ file.name }}</div>
-            <div class="file-category">{{ file.categoryLabel }} • {{ file.extension.toUpperCase() }}</div>
-          </div>
-          <div class="file-size">{{ formatSize(file.size) }}</div>
-        </div>
-      </div>
-    </section>
+        </section>
+      }
+    }
 
     <!-- Empty State -->
     <div *ngIf="!isLoading && files.length === 0" class="empty-state">

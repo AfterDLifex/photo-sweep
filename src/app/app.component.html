@@ -1,6 +1,10 @@
-<div class="app-container">
+<div class="app-container" [ngClass]="{'nav-position-': themeService.navPosition() !== 'fixed'}">
   <!-- iOS-style Header -->
-  <header class="app-header" data-blur="true">
+  <header class="app-header" [ngClass]="{
+    'data-blur': themeService.navConfig().alwaysShown,
+    'nav-floating': themeService.navPosition() === 'floating',
+    'nav-scroll': themeService.navPosition() === 'scroll'
+  }" data-blur="true">
     <div class="header-content">
       <div class="app-title">
         <span class="material-icons">photo_library</span>
@@ -21,7 +25,11 @@
   </main>
 
   <!-- Bottom Tab Bar - iOS -->
-  <nav class="tab-bar">
+  <nav class="tab-bar" [ngClass]="{
+    'nav-bottom': themeService.navPosition() === 'fixed' || themeService.navPosition() === 'bottom',
+    'nav-floating': themeService.navPosition() === 'floating',
+    'nav-translate': themeService.navPosition() === 'scroll'
+  }">
     <button
       class="tab-bar-button"
       [class.active]="currentTab() === 'gallery'"

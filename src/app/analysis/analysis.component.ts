@@ -17,6 +17,7 @@ export class AnalysisComponent implements OnInit {
   totalSize = 0;
   duplicateCount = 0;
   isDarkMode = signal(false);
+  isGridView = signal(true);
 
   constructor(
     private folderService: FolderService,
@@ -108,6 +109,20 @@ export class AnalysisComponent implements OnInit {
     return icons[category];
   }
 
+  getCategoryName(category: FileCategory): string {
+    const names: Record<FileCategory, string> = {
+      [FileCategory.Image]: 'Images',
+      [FileCategory.Video]: 'Videos',
+      [FileCategory.Audio]: 'Audio',
+      [FileCategory.Document]: 'Documents',
+      [FileCategory.Archive]: 'Archives',
+      [FileCategory.Temporary]: 'Temporary',
+      [FileCategory.System]: 'System',
+      [FileCategory.Other]: 'Other'
+    };
+    return names[category];
+  }
+  
   formatCount(count: number): string {
     if (count >= 1000000) return (count / 1000000).toFixed(1) + 'M';
     if (count >= 1000) return (count / 1000).toFixed(1) + 'K';

@@ -1,6 +1,12 @@
 <div class="gallery-screen">
+  <!-- View Toggle -->
+  <div class="view-toggle">
+    <button class="btn btn-ghost" (click)="isGridView.set(!isGridView())">
+      <span class="material-icons" [class]="{'grid': isGridView(), 'list': !isGridView()}">{{ isGridView() ? 'grid_view' : 'list_view' }}</span>
+    </button>
+  </div>
   <!-- Header -->
-  <header class="app-header" data-blur="true">
+  <header class="app-header" [ngClass]="{'data-blur': true}">
     <div class="header-content">
       <div class="app-title">
         <span class="material-icons">photo_library</span>
@@ -56,29 +62,59 @@
       </div>
     }
 
-    <!-- Gallery Grid -->
+    <!-- Gallery Grid or List -->
     @if (!isLoading && files.length > 0) {
-      <div class="gallery-grid">
-        @for (file of files; track file.path) {
-          <div class="gallery-item">
-            <div class="gallery-item-image">
-              <span class="material-icons" [class]="'icon-badge ' + file.category">
-                {{ getIcon(file.category) }}
-              </span>
-            </div>
-            <div class="gallery-item-info">
-              <div class="gallery-item-name">{{ file.name }}</div>
-              <div class="gallery-item-category">{{ file.categoryLabel }}</div>
-              <div class="gallery-item-size">
-                <span>{{ formatSize(file.size) }}</span>
-                @if (file.isTemp) {
-                  <span class="material-icons" style="color: var(--color-system-yellow);">warning</span>
-                }
+      @if (isGridView()) {
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+          @for (file of files; track file.path) {
+            <div class="gallery-item">
+              <div class="gallery-item-image">
+                <span class="material-icons" [class]="'icon-badge ' + file.category">
+                  {{ getIcon(file.category) }}
+                </span>
+              </div>
+              <div class="gallery-item-info">
+                <div class="gallery-item-name">{{ file.name }}</div>
+                <div class="gallery-item-category">{{ file.categoryLabel }}</div>
+                <div class="gallery-item-size">
+                  <span>{{ formatSize(file.size) }}</span>
+                  @if (file.isTemp) {
+                    <span class="material-icons" style="color: var(--color-system-yellow);">warning</span>
+                  }
+                </div>
               </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+      } @else {
+        <!-- Gallery List -->
+        <div class="gallery-list">
+          @for (file of files; track file.path) {
+            <div class="gallery-item">
+              <div class="gallery-item-image">
+                <span class="material-icons" [class]="'icon-badge ' + file.category">
+                  {{ getIcon(file.category) }}
+                </span>
+              </div>
+              <div class="gallery-item-info">
+                <div class="gallery-item-name">{{ file.name }}</div>
+                <div class="gallery-item-category">{{ file.categoryLabel }}</div>
+                <div class="gallery-item-size">
+                  <span>{{ formatSize(file.size) }}</span>
+                  @if (file.isTemp) {
+                    <span class="material-icons" style="color: var(--color-system-yellow);">warning</span>
+                  }
+                </div>
+                <div class="gallery-item-actions">
+                  <button class="btn btn-secondary btn-sm">Select</button>
+                  <button class="btn btn-outline btn-sm">Details</button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
     } @else if (!isLoading && files.length === 0) {
       <div class="empty-state">
         <span class="material-icons" style="font-size: 3rem;">photo_library</span>

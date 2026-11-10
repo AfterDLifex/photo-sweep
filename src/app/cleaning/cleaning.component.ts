@@ -20,6 +20,7 @@ export class CleaningComponent implements OnInit {
   cleared = false;
   clearedMessage = '';
   isDarkMode = signal(false);
+  isGridView = signal(true);
 
   constructor(
     private folderService: FolderService,

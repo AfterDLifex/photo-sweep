@@ -15,6 +15,7 @@ export class GalleryComponent implements OnInit {
   categories: { category: FileCategory; count: number; size: number }[] = [];
   isLoading = false;
   isDarkMode = signal(false);
+  isGridView = signal(true);
 
   constructor(
     private folderService: FolderService,

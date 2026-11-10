@@ -1,4 +1,11 @@
 <div class="analysis-screen">
+  <!-- View Toggle -->
+  <div class="view-toggle">
+    <button class="btn btn-ghost" (click)="isGridView.set(!isGridView())">
+      <span class="material-icons" [class]="{'grid': isGridView(), 'list': !isGridView()}">{{ isGridView() ? 'grid_view' : 'list_view' }}</span>
+    </button>
+  </div>
+  
   <!-- Header -->
   <header class="app-header" data-blur="true">
     <div class="header-content">
@@ -23,19 +30,13 @@
       </div>
     </section>
 
-    <!-- Loading State -->
-    <div *ngIf="isLoading" class="loading-screen">
-      <div class="spinner"></div>
-      <p class="loading-text">Analyzing storage...</p>
-    </div>
-
     <!-- Summary Cards -->
     <section *ngIf="!isLoading && analysisResult" class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon image">
           <span class="material-icons">photo_library</span>
         </div>
-        <div class="stat-value">{{ analysisResult.scanned | number }}</div>
+        <div class="stat-value">{{ analysisResult.scanned }}</div>
         <div class="stat-label">Files</div>
       </div>
       <div class="stat-card">
@@ -93,6 +94,37 @@
         </div>
       </div>
     </section>
+
+    @if (!isGridView()) {
+      <!-- List View for Categories -->
+      <section *ngIf="!isLoading && analysisResult" class="category-list-view">
+        <div class="category-list">
+          @for (cat of categories; track cat.category) {
+            <div class="category-list-item">
+              <div class="category-list-icon">
+                <span class="material-icons" style="color: var(--color-primary);">{{ getCategoryIcon(cat.category) }}</span>
+              </div>
+              <div class="category-list-info">
+                <div class="category-list-name">{{ getCategoryName(cat.category) }}</div>
+                <div class="category-list-stats">
+                  <div class="stats-left">
+                    <div class="value">{{ cat.count }}</div>
+                    <div class="label">Files</div>
+                  </div>
+                  <div class="stats-right">
+                    <div class="value">{{ formatSize(cat.size) }}</div>
+                    <div class="label">Size</div>
+                  </div>
+                </div>
+              </div>
+              <div class="category-list-progress">
+                <div class="progress-fill" [style.width.%]="cat.size / totalSize * 100"></div>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    }
 
     <!-- Action Buttons -->
     <section *ngIf="!isLoading && analysisResult" class="action-section">

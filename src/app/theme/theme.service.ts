@@ -2,9 +2,21 @@ import { Injectable, signal } from '@angular/core';
 
 export type Theme = 'light' | 'dark' | 'system';
 
+export type NavPosition = 'fixed' | 'floating' | 'scroll' | 'top' | 'bottom';
+
+export interface NavPositionConfig {
+  position: NavPosition;
+  offsetTop?: number;
+  offsetBottom?: number;
+  alwaysShown?: boolean;
+  translateOnScroll?: boolean;
+}
+
 export interface ThemeState {
   theme: Theme;
   isDarkMode: boolean;
+  navPosition: NavPosition;
+  navConfig: NavPositionConfig;
 }
 
 @Injectable({
@@ -29,6 +41,11 @@ export class ThemeService {
 
   theme = signal<Theme>('system');
   isDarkMode = signal<boolean>(false);
+  navPosition = signal<NavPosition>('fixed');
+  navConfig = signal<NavPositionConfig>({
+    position: 'fixed',
+    alwaysShown: true
+  });
 
   constructor() {
     const savedTheme = localStorage.getItem(this.THEME_KEY) as Theme || 'system';
@@ -36,6 +53,14 @@ export class ThemeService {
 
     const savedSystemDark = localStorage.getItem(this.SYSTEM_DARK_MODE_KEY) === 'true';
     this.isDarkMode.set(savedSystemDark);
+
+    const savedNavPos = localStorage.getItem('photosweep-nav-position') as NavPosition || 'fixed';
+    this.navPosition.set(savedNavPos);
+
+    const savedNavConfig = localStorage.getItem('photosweep-nav-config');
+    if (savedNavConfig) {
+      this.navConfig.set(JSON.parse(savedNavConfig));
+    }
 
     this.applyTheme();
   }
@@ -65,6 +90,13 @@ export class ThemeService {
     this.isDarkMode.set(isDark);
     localStorage.setItem(this.SYSTEM_DARK_MODE_KEY, String(isDark));
     this.applyTheme();
+  }
+
+  setNavPosition(position: NavPosition, config: NavPositionConfig = { position : 'fixed'}): void {
+    this.navPosition.set(position);
+    this.navConfig.set({ ...this.navConfig(), ...config });
+    localStorage.setItem('photosweep-nav-position', position);
+    localStorage.setItem('photosweep-nav-config', JSON.stringify(this.navConfig()));
   }
 
   private applyTheme(): void {

@@ -81,3 +81,46 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Navbar Position Classes */
+.nav-floating .tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--color-background-100);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.nav-scroll .tab-bar {
+  position: fixed;
+  bottom: var(--safe-bottom);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--color-background-100);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: bottom 0.3s ease;
+}
+
+.nav-bottom .tab-bar {
+  position: static;
+  margin-top: var(--space-4);
+}
+
+/* Active state for floating mode */
+.nav-floating .tab-bar-button {
+  color: var(--color-text-primary);
+}
+
+/* Reduce main padding when navbar is floating */
+.app-container.nav-floating .app-main {
+  padding-bottom: calc(var(--space-4) + var(--safe-bottom));
+}
+
+.app-container.nav-scroll .app-main {
+  padding-bottom: calc(var(--space-4) + var(--safe-bottom));
+}
