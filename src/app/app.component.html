@@ -1,23 +1,19 @@
 <div class="app-container" [ngClass]="{'nav-position-': themeService.navPosition() !== 'fixed'}">
-  <!-- iOS-style Header -->
-  <header class="app-header" [ngClass]="{
-    'data-blur': themeService.navConfig().alwaysShown,
-    'nav-floating': themeService.navPosition() === 'floating',
-    'nav-scroll': themeService.navPosition() === 'scroll'
-  }" data-blur="true">
-    <div class="header-content">
+  <!-- Crystal Drop Top App Bar -->
+  <header class="app-header crystal-header" [ngClass]="{'data-blur': themeService.navConfig().alwaysShown, 'nav-floating': themeService.navPosition() === 'floating', 'nav-scroll': themeService.navPosition() === 'scroll'}" data-blur="true">
+    <div class="header-content crystal-glass">
       <div class="app-title">
-        <span class="material-icons">photo_library</span>
-        <span>PhotoSweep</span>
+        <span class="material-icons crystal-icon">photo_library</span>
+        <span class="app-title-text">PhotoSweep</span>
       </div>
-      <button class="btn btn-ghost btn-icon" (click)="onToggleTheme()">
+      <button class="btn btn-ghost btn-icon crystal-btn" (click)="onToggleTheme()">
         <span class="material-icons">{{ isDarkModeValue ? 'light_mode' : 'dark_mode' }}</span>
       </button>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="app-main">
+  <main class="app-main crystal-main">
     <!-- Current Tab Content -->
     <app-gallery *ngIf="currentTab() === 'gallery'"></app-gallery>
     <app-analysis *ngIf="currentTab() === 'analysis'"></app-analysis>
@@ -25,7 +21,7 @@
   </main>
 
   <!-- Bottom Tab Bar - iOS -->
-  <nav class="tab-bar" [ngClass]="{
+  <nav class="tab-bar crystal-tab-bar" [ngClass]="{
     'nav-bottom': themeService.navPosition() === 'fixed' || themeService.navPosition() === 'bottom',
     'nav-floating': themeService.navPosition() === 'floating',
     'nav-translate': themeService.navPosition() === 'scroll'
